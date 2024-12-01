@@ -9,8 +9,7 @@ describe('FlyingAreaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FlyingAreaComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlyingAreaComponent);
     component = fixture.componentInstance;
