@@ -3,8 +3,11 @@ import { FlyingAreaComponent } from '../../components/flying-area/flying-area.co
 import { BirdComponent } from '../../components/bird/bird.component';
 import { Position, Size } from '../../types';
 import {
+  catchError,
   combineLatest,
   debounceTime,
+  defaultIfEmpty,
+  filter,
   fromEvent,
   map,
   of,
@@ -33,10 +36,12 @@ export class GameComponent {
   );
 
   private mousePosition$ = fromEvent(document, 'mousemove').pipe(
-    startWith(this.getTopRightCorner()),
     debounceTime(MOUSE_MOVE_DEBOUNCE_MS),
     map((event) => event as MouseEvent),
-    map((event): Position => [event.clientX, event.clientY])
+    map((event): Position => [event.clientX, event.clientY]),
+    catchError(() => of(null)),
+    filter((value) => !!value),
+    defaultIfEmpty(this.getTopRightCorner())
   );
 
   protected readonly windowSize = toSignal(this.windowSize$, {
@@ -47,6 +52,8 @@ export class GameComponent {
     initialValue: this.getTopRightCorner()
   });
 
+  // TODO calculate proper position - not computed, change to WritableSignal
+  // Change position over time based on angle of mouse related to current position
   protected readonly birdPosition = computed(() => this.mousePosition());
 
   protected readonly birdWidth = computed(
