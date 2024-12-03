@@ -1,1 +1,14 @@
-<p>bird-selection works!</p>
+<h2>Vyberte ptáka</h2>
+
+<div class="birds-container">
+  @for (bird of birds(); track $index) {
+    <div class="bird" (click)="birdSelected.emit(bird)">
+      <div class="headline">
+        <h3>{{ bird.name }}</h3>
+      </div>
+      <div class="image">
+        <img [src]="bird.imageRight" [alt]="bird.imageRight" />
+      </div>
+    </div>
+  }
+</div>

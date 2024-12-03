@@ -1,13 +1,19 @@
 @if (!gameStateService.initProcessStarted()) {
   <app-welcome-screen (startClicked)="gameStateService.startInitProcess()" />
 } @else if (!gameStateService.isBirdSelected()) {
-  <app-bird-selection />
+  <app-bird-selection
+    [birds]="birdsToSelect()"
+    (birdSelected)="gameStateService.selectBird($event)"
+  />
 } @else if (gameStateService.isGameReady()) {
   <app-flying-area [size]="windowSize()" />
 
-  <app-bird
-    [width]="birdWidth()"
-    [position]="birdPosition()"
-    [direction]="debouncedBirdDirection()"
-  />
+  @if (gameStateService.bird(); as bird) {
+    <app-bird
+      [bird]="bird"
+      [width]="birdWidth()"
+      [position]="birdPosition()"
+      [direction]="debouncedBirdDirection()"
+    />
+  }
 }

@@ -20,7 +20,9 @@ import {
   interval,
   map,
   merge,
+  Observable,
   of,
+  take,
   tap
 } from 'rxjs';
 import {
@@ -32,6 +34,7 @@ import { GameConfig } from '../../config/game-config';
 import { GameStateService } from '../../services/game-state.service';
 import { WelcomeScreenComponent } from '../../components/welcome-screen/welcome-screen.component';
 import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
+import { BIRDS } from '../../config/birds';
 
 @Component({
   selector: 'app-game',
@@ -47,6 +50,8 @@ import { BirdSelectionComponent } from '../../components/bird-selection/bird-sel
   providers: [GameStateService]
 })
 export class GameComponent implements AfterViewInit {
+  private readonly isGameReady$: Observable<boolean>;
+
   private readonly windowSize$ = merge(
     of(this.getCurrentWindowSize()),
     fromEvent(window, 'resize').pipe(
@@ -76,6 +81,7 @@ export class GameComponent implements AfterViewInit {
     initialValue: this.getTopRightCorner()
   });
 
+  protected birdsToSelect = signal(Object.values(BIRDS));
   protected readonly birdPosition = signal(this.getInitBirdPosition());
   protected readonly birdDirection = signal<BirdDirection>(BirdDirection.Right);
 
@@ -93,11 +99,14 @@ export class GameComponent implements AfterViewInit {
   constructor(
     protected readonly gameStateService: GameStateService,
     private readonly destroyRef: DestroyRef
-  ) {}
+  ) {
+    this.isGameReady$ = toObservable(this.gameStateService.isGameReady);
+  }
 
   ngAfterViewInit(): void {
-    // TODO
-    // this.startAnimationLoop();
+    this.isGameReady$
+      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.startAnimationLoop());
   }
 
   private getCurrentWindowSize(): Size {

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { Bird } from '../../types';
 
 @Component({
   selector: 'app-bird-selection',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './bird-selection.component.scss'
 })
 export class BirdSelectionComponent {
+  readonly birds = input.required<Bird[]>();
 
+  protected readonly birdSelected = output<Bird>();
 }
