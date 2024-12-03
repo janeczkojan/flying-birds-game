@@ -1,6 +1,7 @@
-<!--<app-flying-area [size]="windowSize()" />-->
-{{ sector() }}
-<br />
-{{ angle() }}
+<app-flying-area [size]="windowSize()" />
 
-<app-bird [width]="birdWidth()" [position]="birdPosition()" />
+<app-bird
+  [width]="birdWidth()"
+  [position]="birdPosition()"
+  [direction]="birdDirection()"
+/>

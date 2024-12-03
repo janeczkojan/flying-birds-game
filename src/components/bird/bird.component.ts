@@ -1,10 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   HostBinding,
   input
 } from '@angular/core';
-import { Position } from '../../types';
+import { BirdDirection, Position } from '../../types';
+
+const RIGHT_IMAGE = '/images/birds/black_right.gif';
+const LEFT_IMAGE = '/images/birds/black_left.gif';
 
 enum CssVariables {
   Width = '--width',
@@ -22,6 +26,11 @@ enum CssVariables {
 export class BirdComponent {
   readonly width = input.required<number>();
   readonly position = input.required<Position>();
+  readonly direction = input.required<BirdDirection>();
+
+  protected readonly image = computed(() =>
+    this.direction() === BirdDirection.Left ? LEFT_IMAGE : RIGHT_IMAGE
+  );
 
   @HostBinding(`style.${CssVariables.Width}`)
   protected get cssVarWidth(): string {
