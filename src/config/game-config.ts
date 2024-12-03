@@ -4,5 +4,6 @@ export enum GameConfig {
   BirdDirectionDebounceMs = 100,
   AnimationIntervalMs = 20,
   BirdWidthDivider = 7,
-  MovementSizePx = 5
+  MovementSizePx = 5,
+  MaxDistanceToCursorPx = 10
 }

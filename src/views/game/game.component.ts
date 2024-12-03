@@ -105,7 +105,11 @@ export class GameComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.isGameReady$
-      .pipe(take(1), takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        filter((isReady) => isReady),
+        take(1),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(() => this.startAnimationLoop());
   }
 
@@ -133,6 +137,10 @@ export class GameComponent implements AfterViewInit {
         const distance = Math.sqrt(
           xDistance * xDistance + yDistance * yDistance
         );
+
+        if (distance <= GameConfig.MaxDistanceToCursorPx) {
+          return;
+        }
 
         let angleRad = Math.asin(yDistance / distance);
 
