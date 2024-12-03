@@ -23,10 +23,15 @@ import {
   of,
   tap
 } from 'rxjs';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal
+} from '@angular/core/rxjs-interop';
 
 const RESIZE_DEBOUNCE_MS = 10;
 const MOUSE_MOVE_DEBOUNCE_MS = 4;
+const BIRD_DIRECTION_DEBOUNCE_MS = 100;
 const ANIMATION_INTERVAL_MS = 20;
 const BIRD_WIDTH_DIVIDER = 10;
 const MOVEMENT_SIZE = 5;
@@ -70,6 +75,13 @@ export class GameComponent implements AfterViewInit {
 
   protected readonly birdPosition = signal(this.getInitBirdPosition());
   protected readonly birdDirection = signal<BirdDirection>(BirdDirection.Right);
+
+  protected readonly debouncedBirdDirection = toSignal(
+    toObservable(this.birdDirection).pipe(
+      debounceTime(BIRD_DIRECTION_DEBOUNCE_MS)
+    ),
+    { initialValue: BirdDirection.Right }
+  );
 
   protected readonly birdWidth = computed(
     () => this.windowSize()[0] / BIRD_WIDTH_DIVIDER
