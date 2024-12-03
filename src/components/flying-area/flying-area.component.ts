@@ -5,11 +5,10 @@ import {
   input
 } from '@angular/core';
 import { Size } from '../../types';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-flying-area',
-  imports: [NgOptimizedImage],
+  imports: [],
   templateUrl: './flying-area.component.html',
   styleUrl: './flying-area.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

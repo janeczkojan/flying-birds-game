@@ -28,26 +28,29 @@ import {
   toObservable,
   toSignal
 } from '@angular/core/rxjs-interop';
-
-const RESIZE_DEBOUNCE_MS = 10;
-const MOUSE_MOVE_DEBOUNCE_MS = 4;
-const BIRD_DIRECTION_DEBOUNCE_MS = 100;
-const ANIMATION_INTERVAL_MS = 20;
-const BIRD_WIDTH_DIVIDER = 10;
-const MOVEMENT_SIZE = 5;
+import { GameConfig } from '../../config/game-config';
+import { GameStateService } from '../../services/game-state.service';
+import { WelcomeScreenComponent } from '../../components/welcome-screen/welcome-screen.component';
+import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
 
 @Component({
   selector: 'app-game',
-  imports: [FlyingAreaComponent, BirdComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FlyingAreaComponent,
+    BirdComponent,
+    WelcomeScreenComponent,
+    BirdSelectionComponent
+  ],
+  providers: [GameStateService]
 })
 export class GameComponent implements AfterViewInit {
   private readonly windowSize$ = merge(
     of(this.getCurrentWindowSize()),
     fromEvent(window, 'resize').pipe(
-      debounceTime(RESIZE_DEBOUNCE_MS),
+      debounceTime(GameConfig.ResizeDebounceMs),
       map(() => this.getCurrentWindowSize())
     )
   );
@@ -55,7 +58,7 @@ export class GameComponent implements AfterViewInit {
   private readonly mousePosition$ = merge(
     of(this.getTopRightCorner()),
     fromEvent(document, 'mousemove').pipe(
-      debounceTime(MOUSE_MOVE_DEBOUNCE_MS),
+      debounceTime(GameConfig.MouseMoveDebounceMs),
       map((event) => event as MouseEvent),
       map((event): Position => [event.clientX, event.clientY]),
       catchError(() => of(null)),
@@ -78,19 +81,23 @@ export class GameComponent implements AfterViewInit {
 
   protected readonly debouncedBirdDirection = toSignal(
     toObservable(this.birdDirection).pipe(
-      debounceTime(BIRD_DIRECTION_DEBOUNCE_MS)
+      debounceTime(GameConfig.BirdDirectionDebounceMs)
     ),
     { initialValue: BirdDirection.Right }
   );
 
   protected readonly birdWidth = computed(
-    () => this.windowSize()[0] / BIRD_WIDTH_DIVIDER
+    () => this.windowSize()[0] / GameConfig.BirdWidthDivider
   );
 
-  constructor(private readonly destroyRef: DestroyRef) {}
+  constructor(
+    protected readonly gameStateService: GameStateService,
+    private readonly destroyRef: DestroyRef
+  ) {}
 
   ngAfterViewInit(): void {
-    this.startAnimationLoop();
+    // TODO
+    // this.startAnimationLoop();
   }
 
   private getCurrentWindowSize(): Size {
@@ -128,8 +135,8 @@ export class GameComponent implements AfterViewInit {
           angleRad = Math.PI * 2 - angleRad;
         }
 
-        const a = -MOVEMENT_SIZE * Math.sin(angleRad);
-        const b = MOVEMENT_SIZE * Math.cos(angleRad);
+        const a = -GameConfig.MovementSizePx * Math.sin(angleRad);
+        const b = GameConfig.MovementSizePx * Math.cos(angleRad);
 
         this.birdPosition.update(([birdX, birdY]) => [birdX + b, birdY + a]);
         this.birdDirection.set(this.getBirdDirection(angleRad));
@@ -142,7 +149,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   private startAnimationLoop(): void {
-    interval(ANIMATION_INTERVAL_MS)
+    interval(GameConfig.AnimationIntervalMs)
       .pipe(
         tap(() => this.animationLoopStep()),
         takeUntilDestroyed(this.destroyRef)
