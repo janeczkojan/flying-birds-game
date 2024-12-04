@@ -32,24 +32,17 @@ import {
 } from '@angular/core/rxjs-interop';
 import { GameConfig } from '../../config/game-config';
 import { GameStateService } from '../../services/game-state.service';
-import { WelcomeScreenComponent } from '../../components/welcome-screen/welcome-screen.component';
 import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
 import { BIRDS } from '../../config/birds';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrl: './game.component.scss',
+  selector: 'app-game-view',
+  templateUrl: './game-view.component.html',
+  styleUrl: './game-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FlyingAreaComponent,
-    BirdComponent,
-    WelcomeScreenComponent,
-    BirdSelectionComponent
-  ],
-  providers: [GameStateService]
+  imports: [FlyingAreaComponent, BirdComponent, BirdSelectionComponent]
 })
-export class GameComponent implements AfterViewInit {
+export class GameViewComponent implements AfterViewInit {
   private readonly isGameReady$: Observable<boolean>;
 
   private readonly windowSize$ = merge(

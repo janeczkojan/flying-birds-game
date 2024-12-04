@@ -1,5 +1,5 @@
 @if (!gameStateService.initProcessStarted()) {
-  <app-welcome-screen (startClicked)="gameStateService.startInitProcess()" />
+  <!--  <app-welcome-screen (startClicked)="gameStateService.startInitProcess()" />-->
 } @else if (!gameStateService.isBirdSelected()) {
   <app-bird-selection
     [birds]="birdsToSelect()"

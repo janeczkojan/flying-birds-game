@@ -1,5 +1,3 @@
-<h2>Vyberte ptáka</h2>
-
 <div class="birds-container">
   @for (bird of birds(); track $index) {
     <div class="bird" (click)="birdSelected.emit(bird)">

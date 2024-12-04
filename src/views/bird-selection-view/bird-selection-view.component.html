@@ -1,0 +1,6 @@
+<h2>Vyberte ptáka</h2>
+
+<app-bird-selection
+  [birds]="birdsToSelect()"
+  (birdSelected)="selectBird($event)"
+/>

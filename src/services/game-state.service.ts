@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Bird } from '../types';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GameStateService {
   private readonly _initProcessStarted = signal(false);
   private readonly _bird = signal<Bird | null>(null);
