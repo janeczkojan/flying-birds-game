@@ -1,1 +1,6 @@
-<p>food-selection-view works!</p>
+<h2>Vyberte jídlo pro ptáka</h2>
+
+<app-food-selection
+  [foodList]="foodToSelect()"
+  (foodSelected)="selectFood($event)"
+/>

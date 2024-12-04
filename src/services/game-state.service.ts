@@ -60,4 +60,8 @@ export class GameStateService {
   selectBackground(background: BackgroundImage): void {
     this.backgroundSubject.next(background);
   }
+
+  selectFood(food: FoodImage): void {
+    this.foodSubject.next(food);
+  }
 }

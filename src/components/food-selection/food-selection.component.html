@@ -1,0 +1,7 @@
+<div class="food-container">
+  @for (food of foodList(); track $index) {
+    <div class="food" (click)="foodSelected.emit(food)">
+      <img [src]="food.fullSizeSrc" [alt]="food.fullSizeSrc" />
+    </div>
+  }
+</div>

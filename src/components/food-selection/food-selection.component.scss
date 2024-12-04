@@ -1,0 +1,33 @@
+.food-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.food {
+  $width: 170px;
+
+  border: 4px solid var(--bird-border-color);
+  border-radius: 1rem;
+  cursor: pointer;
+  width: $width;
+  height: $width;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border-color: #00ca00;
+  }
+
+  &:active {
+    border-color: #008700;
+  }
+
+  img {
+    width: calc($width - 3rem);
+    height: calc($width - 3rem);
+  }
+}
