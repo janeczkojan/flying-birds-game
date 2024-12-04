@@ -4,7 +4,7 @@ import {
   computed,
   input
 } from '@angular/core';
-import { Size } from '../../types';
+import { BackgroundImage, Size } from '../../types';
 
 @Component({
   selector: 'app-flying-area',
@@ -14,8 +14,7 @@ import { Size } from '../../types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlyingAreaComponent {
-  readonly image = '/images/backgrounds/cloudy-sky.jpg';
-
+  readonly image = input.required<BackgroundImage>();
   readonly size = input.required<Size>();
 
   protected readonly width = computed(() => this.size()[0]);

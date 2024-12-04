@@ -15,7 +15,7 @@ export class BirdSelectionViewComponent {
   protected birdsToSelect = signal(Object.values(BIRDS));
 
   constructor(
-    protected readonly gameStateService: GameStateService,
+    private readonly gameStateService: GameStateService,
     private readonly router: Router
   ) {}
 

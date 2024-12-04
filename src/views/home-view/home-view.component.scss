@@ -6,7 +6,6 @@
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: var(--background-color);
 }
 
@@ -15,10 +14,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 10rem 2rem 2rem 2rem;
   gap: 2rem;
   box-sizing: border-box;
-  margin-top: -200px;
 
   h1 {
     margin: 0;

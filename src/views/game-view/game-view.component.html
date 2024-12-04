@@ -1,4 +1,6 @@
-<app-flying-area [size]="windowSize()" />
+@if (gameStateService.background(); as background) {
+  <app-flying-area [image]="background" [size]="windowSize()" />
+}
 
 @if (gameStateService.bird(); as bird) {
   <app-bird

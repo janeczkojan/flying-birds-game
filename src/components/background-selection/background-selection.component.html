@@ -1,0 +1,7 @@
+<div class="backgrounds-container">
+  @for (background of backgrounds(); track $index) {
+    <div class="background" (click)="backgroundSelected.emit(background)">
+      <img [src]="background.smallSrc" [alt]="background.smallSrc" />
+    </div>
+  }
+</div>

@@ -1,1 +1,8 @@
-<img [src]="image" [alt]="image" [width]="width()" [height]="height()" />
+@if (image(); as image) {
+  <img
+    [src]="image.fullSizeSrc"
+    [alt]="image.fullSizeSrc"
+    [width]="width()"
+    [height]="height()"
+  />
+}

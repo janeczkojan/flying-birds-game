@@ -1,16 +1,16 @@
 import { BackgroundImage } from '../types';
 
 export enum BackgroundImages {
-  CloudSky = 'CLOUD_SKY',
+  CloudySky = 'CLOUDY_SKY',
   Forrest = 'FORREST',
   Mountains = 'MOUNTAINS',
   Sea = 'SEA'
 }
 
 export const BACKGROUND_IMAGES: Record<BackgroundImages, BackgroundImage> = {
-  [BackgroundImages.CloudSky]: {
-    fullSizeSrc: '/images/backgrounds/cloud-sky.jpg',
-    smallSrc: '/images/backgrounds/cloud-sky_small.jpg'
+  [BackgroundImages.CloudySky]: {
+    fullSizeSrc: '/images/backgrounds/cloudy-sky.jpg',
+    smallSrc: '/images/backgrounds/cloudy-sky_small.jpg'
   },
   [BackgroundImages.Forrest]: {
     fullSizeSrc: '/images/backgrounds/forrest.jpg',
