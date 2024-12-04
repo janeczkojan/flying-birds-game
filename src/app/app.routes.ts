@@ -21,15 +21,6 @@ export const routes: Routes = [
       )
   },
   {
-    path: 'background-selection',
-    pathMatch: 'full',
-    canActivate: [canAccessBackgroundSelectionGuard],
-    loadComponent: () =>
-      import(
-        '../views/background-selection-view/background-selection-view.component'
-      ).then((m) => m.BackgroundSelectionViewComponent)
-  },
-  {
     path: 'food-selection',
     pathMatch: 'full',
     canActivate: [canAccessFoodSelectionGuard],
@@ -37,6 +28,15 @@ export const routes: Routes = [
       import('../views/food-selection-view/food-selection-view.component').then(
         (m) => m.FoodSelectionViewComponent
       )
+  },
+  {
+    path: 'background-selection',
+    pathMatch: 'full',
+    canActivate: [canAccessBackgroundSelectionGuard],
+    loadComponent: () =>
+      import(
+        '../views/background-selection-view/background-selection-view.component'
+      ).then((m) => m.BackgroundSelectionViewComponent)
   },
   {
     path: 'game',

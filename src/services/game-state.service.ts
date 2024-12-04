@@ -26,8 +26,8 @@ export class GameStateService {
   readonly isGameReady$ = combineLatest([
     this.initProcessStarted$,
     this.isBirdSelected$,
-    this.isBackgroundSelected$,
-    this.isFoodSelected$
+    this.isFoodSelected$,
+    this.isBackgroundSelected$
   ]).pipe(map((selectedAll) => selectedAll.every((s) => !!s)));
 
   readonly initProcessStarted = toSignal(this.initProcessStarted$, {

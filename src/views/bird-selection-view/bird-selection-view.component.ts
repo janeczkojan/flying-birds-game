@@ -22,6 +22,6 @@ export class BirdSelectionViewComponent {
 
   selectBird(bird: Bird): void {
     this.gameStateService.selectBird(bird);
-    void this.router.navigateByUrl('/background-selection');
+    void this.router.navigateByUrl('/food-selection');
   }
 }

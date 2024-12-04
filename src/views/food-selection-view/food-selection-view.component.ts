@@ -22,6 +22,6 @@ export class FoodSelectionViewComponent {
 
   selectFood(food: FoodImage): void {
     this.gameStateService.selectFood(food);
-    void this.router.navigateByUrl('/game');
+    void this.router.navigateByUrl('/background-selection');
   }
 }

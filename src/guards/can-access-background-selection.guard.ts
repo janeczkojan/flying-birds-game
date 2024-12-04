@@ -15,7 +15,8 @@ export const canAccessBackgroundSelectionGuard: CanActivateFn = (
 
   return combineLatest([
     gameStateService.initProcessStarted$,
-    gameStateService.isBirdSelected$
+    gameStateService.isBirdSelected$,
+    gameStateService.isFoodSelected$
   ]).pipe(
     map((values) => values.every((value) => !!value)),
     take(1),
