@@ -6,7 +6,7 @@
 }
 
 .bird {
-  border: 4px solid #4c4c4c;
+  border: 4px solid var(--bird-border-color);
   border-radius: 1rem;
   cursor: pointer;
   box-sizing: border-box;
@@ -23,6 +23,7 @@
 
   .headline {
     text-align: center;
+    color: var(--headline-color);
   }
 
   .image {

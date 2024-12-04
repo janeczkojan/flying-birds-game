@@ -10,8 +10,10 @@
   align-items: center;
   overflow: auto;
   margin-top: -100px;
+  background-color: var(--background-color);
 
   h2 {
     font-size: 2rem;
+    color: var(--headline-color);
   }
 }
