@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameStateService } from '../../services/game-state.service';
 import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
@@ -9,7 +9,8 @@ import { Bird } from '../../types';
   selector: 'app-bird-selection-view',
   imports: [BirdSelectionComponent],
   templateUrl: './bird-selection-view.component.html',
-  styleUrl: './bird-selection-view.component.scss'
+  styleUrl: './bird-selection-view.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BirdSelectionViewComponent {
   protected birdsToSelect = signal(Object.values(BIRDS));

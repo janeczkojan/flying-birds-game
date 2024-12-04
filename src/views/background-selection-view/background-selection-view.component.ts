@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { BACKGROUND_IMAGES } from '../../config/background-images';
 import { GameStateService } from '../../services/game-state.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,8 @@ import { BackgroundSelectionComponent } from '../../components/background-select
   selector: 'app-background-selection-view',
   imports: [BackgroundSelectionComponent],
   templateUrl: './background-selection-view.component.html',
-  styleUrl: './background-selection-view.component.scss'
+  styleUrl: './background-selection-view.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackgroundSelectionViewComponent {
   protected readonly backgroundsToSelect = signal(

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -7,7 +7,8 @@ import { ButtonComponent } from '../../components/button/button.component';
   selector: 'app-home-view',
   imports: [ButtonComponent],
   templateUrl: './home-view.component.html',
-  styleUrl: './home-view.component.scss'
+  styleUrl: './home-view.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeViewComponent {
   constructor(

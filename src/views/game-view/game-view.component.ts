@@ -37,8 +37,8 @@ import { GameStateService } from '../../services/game-state.service';
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
   styleUrl: './game-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlyingAreaComponent, BirdComponent]
+  imports: [FlyingAreaComponent, BirdComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameViewComponent implements AfterViewInit {
   private readonly windowSize$ = merge(
