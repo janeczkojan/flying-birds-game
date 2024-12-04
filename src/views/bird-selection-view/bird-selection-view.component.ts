@@ -4,6 +4,7 @@ import { GameStateService } from '../../services/game-state.service';
 import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
 import { BIRDS } from '../../config/birds';
 import { Bird } from '../../types';
+import { ROUTE_URLS } from '../../config/route-urls';
 
 @Component({
   selector: 'app-bird-selection-view',
@@ -22,6 +23,6 @@ export class BirdSelectionViewComponent {
 
   selectBird(bird: Bird): void {
     this.gameStateService.selectBird(bird);
-    void this.router.navigateByUrl('/food-selection');
+    void this.router.navigateByUrl(`/${ROUTE_URLS.foodSelection()}`);
   }
 }

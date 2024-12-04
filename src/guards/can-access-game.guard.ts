@@ -3,6 +3,7 @@ import { DestroyRef, inject } from '@angular/core';
 import { GameStateService } from '../services/game-state.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, take, tap } from 'rxjs';
+import { ROUTE_URLS } from '../config/route-urls';
 
 export const canAccessGameGuard: CanActivateFn = (
   route,
@@ -16,7 +17,7 @@ export const canAccessGameGuard: CanActivateFn = (
     take(1),
     tap((gameReady) => {
       if (!gameReady) {
-        void router.navigateByUrl('/bird-selection');
+        void router.navigateByUrl(`/${ROUTE_URLS.backgroundSelection()}`);
       }
     }),
     takeUntilDestroyed(destroyRef)

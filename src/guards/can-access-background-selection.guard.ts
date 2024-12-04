@@ -4,6 +4,7 @@ import { GameStateService } from '../services/game-state.service';
 import { map, Observable, take, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { combineLatest } from 'rxjs';
+import { ROUTE_URLS } from '../config/route-urls';
 
 export const canAccessBackgroundSelectionGuard: CanActivateFn = (
   route,
@@ -22,7 +23,7 @@ export const canAccessBackgroundSelectionGuard: CanActivateFn = (
     take(1),
     tap((backgroundSelectionReady) => {
       if (!backgroundSelectionReady) {
-        void router.navigateByUrl('/bird-selection');
+        void router.navigateByUrl(`/${ROUTE_URLS.foodSelection()}`);
       }
     }),
     takeUntilDestroyed(destroyRef)

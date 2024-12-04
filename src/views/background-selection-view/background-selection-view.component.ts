@@ -4,6 +4,7 @@ import { GameStateService } from '../../services/game-state.service';
 import { Router } from '@angular/router';
 import { BackgroundImage } from '../../types';
 import { BackgroundSelectionComponent } from '../../components/background-selection/background-selection.component';
+import { ROUTE_URLS } from '../../config/route-urls';
 
 @Component({
   selector: 'app-background-selection-view',
@@ -24,6 +25,6 @@ export class BackgroundSelectionViewComponent {
 
   selectBackground(background: BackgroundImage): void {
     this.gameStateService.selectBackground(background);
-    void this.router.navigateByUrl('/game');
+    void this.router.navigateByUrl(`/${ROUTE_URLS.game()}`);
   }
 }

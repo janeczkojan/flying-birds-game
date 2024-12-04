@@ -4,15 +4,16 @@ import { canAccessBirdSelectionGuard } from '../guards/can-access-bird-selection
 import { canAccessGameGuard } from '../guards/can-access-game.guard';
 import { canAccessBackgroundSelectionGuard } from '../guards/can-access-background-selection.guard';
 import { canAccessFoodSelectionGuard } from '../guards/can-access-food-selection.guard';
+import { ROUTE_URLS } from '../config/route-urls';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: ROUTE_URLS.home(),
     pathMatch: 'full',
     component: HomeViewComponent
   },
   {
-    path: 'bird-selection',
+    path: ROUTE_URLS.birdSelection(),
     pathMatch: 'full',
     canActivate: [canAccessBirdSelectionGuard],
     loadComponent: () =>
@@ -21,7 +22,7 @@ export const routes: Routes = [
       )
   },
   {
-    path: 'food-selection',
+    path: ROUTE_URLS.foodSelection(),
     pathMatch: 'full',
     canActivate: [canAccessFoodSelectionGuard],
     loadComponent: () =>
@@ -30,7 +31,7 @@ export const routes: Routes = [
       )
   },
   {
-    path: 'background-selection',
+    path: ROUTE_URLS.backgroundSelection(),
     pathMatch: 'full',
     canActivate: [canAccessBackgroundSelectionGuard],
     loadComponent: () =>
@@ -39,7 +40,7 @@ export const routes: Routes = [
       ).then((m) => m.BackgroundSelectionViewComponent)
   },
   {
-    path: 'game',
+    path: ROUTE_URLS.game(),
     pathMatch: 'full',
     canActivate: [canAccessGameGuard],
     loadComponent: () =>

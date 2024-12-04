@@ -4,6 +4,7 @@ import { FOOD_IMAGES } from '../../config/food-images';
 import { GameStateService } from '../../services/game-state.service';
 import { Router } from '@angular/router';
 import { FoodImage } from '../../types';
+import { ROUTE_URLS } from '../../config/route-urls';
 
 @Component({
   selector: 'app-food-selection-view',
@@ -22,6 +23,6 @@ export class FoodSelectionViewComponent {
 
   selectFood(food: FoodImage): void {
     this.gameStateService.selectFood(food);
-    void this.router.navigateByUrl('/background-selection');
+    void this.router.navigateByUrl(`/${ROUTE_URLS.backgroundSelection()}`);
   }
 }
