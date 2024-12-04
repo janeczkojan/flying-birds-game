@@ -10,18 +10,18 @@ export enum BackgroundImages {
 export const BACKGROUND_IMAGES: Record<BackgroundImages, BackgroundImage> = {
   [BackgroundImages.CloudySky]: {
     fullSizeSrc: '/images/backgrounds/cloudy-sky.jpg',
-    smallSrc: '/images/backgrounds/cloudy-sky_small.jpg'
+    smallSizeSrc: '/images/backgrounds/cloudy-sky_small.jpg'
   },
   [BackgroundImages.Forrest]: {
     fullSizeSrc: '/images/backgrounds/forrest.jpg',
-    smallSrc: '/images/backgrounds/forrest_small.jpg'
+    smallSizeSrc: '/images/backgrounds/forrest_small.jpg'
   },
   [BackgroundImages.Mountains]: {
     fullSizeSrc: '/images/backgrounds/mountains.jpg',
-    smallSrc: '/images/backgrounds/mountains_small.jpg'
+    smallSizeSrc: '/images/backgrounds/mountains_small.jpg'
   },
   [BackgroundImages.Sea]: {
     fullSizeSrc: '/images/backgrounds/sea.jpg',
-    smallSrc: '/images/backgrounds/sea_small.jpg'
+    smallSizeSrc: '/images/backgrounds/sea_small.jpg'
   }
 };

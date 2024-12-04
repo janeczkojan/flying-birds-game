@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { BackgroundImage, Bird } from '../types';
+import { BackgroundImage, Bird, FoodImage } from '../types';
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -9,11 +9,15 @@ export class GameStateService {
   private readonly birdSubject = new BehaviorSubject<Bird | null>(null);
   private readonly backgroundSubject =
     new BehaviorSubject<BackgroundImage | null>(null);
+  private readonly foodSubject = new BehaviorSubject<FoodImage | null>(null);
 
   readonly initProcessStarted$ = this.initProcessStartedSubject.asObservable();
   readonly bird$ = this.birdSubject.asObservable();
   readonly background$ = this.backgroundSubject.asObservable();
+  readonly food$ = this.foodSubject.asObservable();
+
   readonly isBirdSelected$ = this.bird$.pipe(map((bird) => !!bird));
+  readonly isFoodSelected$ = this.food$.pipe(map((food) => !!food));
 
   readonly isBackgroundSelected$ = this.background$.pipe(
     map((background) => !!background)
@@ -22,7 +26,8 @@ export class GameStateService {
   readonly isGameReady$ = combineLatest([
     this.initProcessStarted$,
     this.isBirdSelected$,
-    this.isBackgroundSelected$
+    this.isBackgroundSelected$,
+    this.isFoodSelected$
   ]).pipe(map((selectedAll) => selectedAll.every((s) => !!s)));
 
   readonly initProcessStarted = toSignal(this.initProcessStarted$, {
@@ -34,6 +39,10 @@ export class GameStateService {
   });
   readonly background = toSignal(this.background$, { initialValue: null });
   readonly isBackgroundSelected = toSignal(this.isBackgroundSelected$, {
+    initialValue: false
+  });
+  readonly food = toSignal(this.food$, { initialValue: null });
+  readonly isFoodSelected = toSignal(this.isFoodSelected$, {
     initialValue: false
   });
   readonly isGameReady = toSignal(this.isGameReady$, { initialValue: false });
