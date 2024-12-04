@@ -32,19 +32,15 @@ import {
 } from '@angular/core/rxjs-interop';
 import { GameConfig } from '../../config/game-config';
 import { GameStateService } from '../../services/game-state.service';
-import { BirdSelectionComponent } from '../../components/bird-selection/bird-selection.component';
-import { BIRDS } from '../../config/birds';
 
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
   styleUrl: './game-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlyingAreaComponent, BirdComponent, BirdSelectionComponent]
+  imports: [FlyingAreaComponent, BirdComponent]
 })
 export class GameViewComponent implements AfterViewInit {
-  private readonly isGameReady$: Observable<boolean>;
-
   private readonly windowSize$ = merge(
     of(this.getCurrentWindowSize()),
     fromEvent(window, 'resize').pipe(
@@ -74,7 +70,6 @@ export class GameViewComponent implements AfterViewInit {
     initialValue: this.getTopRightCorner()
   });
 
-  protected birdsToSelect = signal(Object.values(BIRDS));
   protected readonly birdPosition = signal(this.getInitBirdPosition());
   protected readonly birdDirection = signal<BirdDirection>(BirdDirection.Right);
 
@@ -92,12 +87,10 @@ export class GameViewComponent implements AfterViewInit {
   constructor(
     protected readonly gameStateService: GameStateService,
     private readonly destroyRef: DestroyRef
-  ) {
-    this.isGameReady$ = toObservable(this.gameStateService.isGameReady);
-  }
+  ) {}
 
   ngAfterViewInit(): void {
-    this.isGameReady$
+    this.gameStateService.isGameReady$
       .pipe(
         filter((isReady) => isReady),
         take(1),
