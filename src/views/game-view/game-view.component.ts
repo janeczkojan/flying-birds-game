@@ -20,7 +20,6 @@ import {
   interval,
   map,
   merge,
-  Observable,
   of,
   take,
   tap
@@ -32,12 +31,13 @@ import {
 } from '@angular/core/rxjs-interop';
 import { GameConfig } from '../../config/game-config';
 import { GameStateService } from '../../services/game-state.service';
+import { FoodComponent } from '../../components/food/food.component';
 
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
   styleUrl: './game-view.component.scss',
-  imports: [FlyingAreaComponent, BirdComponent],
+  imports: [FlyingAreaComponent, BirdComponent, FoodComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameViewComponent implements AfterViewInit {
@@ -66,9 +66,12 @@ export class GameViewComponent implements AfterViewInit {
     initialValue: this.getCurrentWindowSize()
   });
 
-  protected readonly mousePosition = toSignal(this.mousePosition$, {
-    initialValue: this.getTopRightCorner()
-  });
+  protected readonly mousePosition: Signal<Position> = toSignal(
+    this.mousePosition$,
+    {
+      initialValue: this.getTopRightCorner()
+    }
+  );
 
   protected readonly birdPosition = signal(this.getInitBirdPosition());
   protected readonly birdDirection = signal<BirdDirection>(BirdDirection.Right);

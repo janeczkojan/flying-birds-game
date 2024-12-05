@@ -1,0 +1,17 @@
+:host {
+  --size: 0;
+  --position-x: 0;
+  --position-y: 0;
+}
+
+.food {
+  position: fixed;
+  left: var(--position-x);
+  top: var(--position-y);
+  z-index: 2000;
+
+  img {
+    width: var(--size);
+    height: var(--size);
+  }
+}

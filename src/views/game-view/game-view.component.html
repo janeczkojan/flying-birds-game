@@ -1,10 +1,21 @@
-@if (gameStateService.background(); as background) {
-  <app-flying-area [image]="background" [size]="windowSize()" />
-}
+@if (
+  gameStateService.background() &&
+  gameStateService.food() &&
+  gameStateService.bird()
+) {
+  <app-flying-area
+    [image]="gameStateService.background()!"
+    [size]="windowSize()"
+  />
 
-@if (gameStateService.bird(); as bird) {
+  <app-food
+    [food]="gameStateService.food()!"
+    [size]="birdWidth() / 3"
+    [position]="mousePosition()"
+  />
+
   <app-bird
-    [bird]="bird"
+    [bird]="gameStateService.bird()!"
     [width]="birdWidth()"
     [position]="birdPosition()"
     [direction]="debouncedBirdDirection()"
