@@ -1,17 +1,3 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  height: 100%;
-}
-
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
 :root {
   --background-color: #ffffff;
   --headline-color: black;
@@ -24,4 +10,19 @@ body {
     --bird-border-color: #8a8a8a;
     --escape-menu-background-color: rgba(0, 0, 0, 0.8);
   }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+body {
+  height: 100%;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }

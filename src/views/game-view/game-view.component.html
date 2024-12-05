@@ -1,32 +1,34 @@
-@if (
-  gameStateService.background() &&
-  gameStateService.food() &&
-  gameStateService.bird()
-) {
-  @if (escapeMenuOpened()) {
-    <app-escape-menu
-      (quitGameClick)="quitGame()"
-      (continueClick)="closeEscapeMenu()"
+<div [class.cursor-hidden]="!escapeMenuOpened()">
+  @if (
+    gameStateService.background() &&
+    gameStateService.food() &&
+    gameStateService.bird()
+  ) {
+    @if (escapeMenuOpened()) {
+      <app-escape-menu
+        (quitGameClick)="quitGame()"
+        (continueClick)="closeEscapeMenu()"
+      />
+    }
+
+    <app-flying-area
+      [image]="gameStateService.background()!"
+      [size]="windowSize()"
     />
+
+    @if (!escapeMenuOpened()) {
+      <app-food
+        [food]="gameStateService.food()!"
+        [size]="birdWidth() / 3"
+        [position]="mousePosition()"
+      />
+
+      <app-bird
+        [bird]="gameStateService.bird()!"
+        [width]="birdWidth()"
+        [position]="birdPosition()"
+        [direction]="debouncedBirdDirection()"
+      />
+    }
   }
-
-  <app-flying-area
-    [image]="gameStateService.background()!"
-    [size]="windowSize()"
-  />
-
-  @if (!escapeMenuOpened()) {
-    <app-food
-      [food]="gameStateService.food()!"
-      [size]="birdWidth() / 3"
-      [position]="mousePosition()"
-    />
-
-    <app-bird
-      [bird]="gameStateService.bird()!"
-      [width]="birdWidth()"
-      [position]="birdPosition()"
-      [direction]="debouncedBirdDirection()"
-    />
-  }
-}
+</div>

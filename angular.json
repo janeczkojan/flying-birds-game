@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/flying-birds-game",
+            "outputPath": "../dist/flying-birds-game",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
