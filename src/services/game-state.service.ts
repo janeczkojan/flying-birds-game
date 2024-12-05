@@ -49,6 +49,13 @@ export class GameStateService {
 
   constructor() {}
 
+  reset(): void {
+    this.initProcessStartedSubject.next(false);
+    this.birdSubject.next(null);
+    this.backgroundSubject.next(null);
+    this.foodSubject.next(null);
+  }
+
   startInitProcess(): void {
     this.initProcessStartedSubject.next(true);
   }

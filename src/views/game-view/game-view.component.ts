@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  HostListener,
   Signal,
   signal
 } from '@angular/core';
@@ -32,15 +33,32 @@ import {
 import { GameConfig } from '../../config/game-config';
 import { GameStateService } from '../../services/game-state.service';
 import { FoodComponent } from '../../components/food/food.component';
+import { EscapeMenuComponent } from '../../components/escape-menu/escape-menu.component';
+import { Router } from '@angular/router';
+import { ROUTE_URLS } from '../../config/route-urls';
 
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
   styleUrl: './game-view.component.scss',
-  imports: [FlyingAreaComponent, BirdComponent, FoodComponent],
+  imports: [
+    FlyingAreaComponent,
+    BirdComponent,
+    FoodComponent,
+    EscapeMenuComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameViewComponent implements AfterViewInit {
+  @HostListener('document:keydown.escape')
+  onEscKeydownHandler() {
+    if (this.escapeMenuOpened()) {
+      this.escapeMenuOpened.set(false);
+    } else {
+      this.escapeMenuOpened.set(true);
+    }
+  }
+
   private readonly windowSize$ = merge(
     of(this.getCurrentWindowSize()),
     fromEvent(window, 'resize').pipe(
@@ -73,6 +91,7 @@ export class GameViewComponent implements AfterViewInit {
     }
   );
 
+  protected readonly escapeMenuOpened = signal(false);
   protected readonly birdPosition = signal(this.getInitBirdPosition());
   protected readonly birdDirection = signal<BirdDirection>(BirdDirection.Right);
 
@@ -89,6 +108,7 @@ export class GameViewComponent implements AfterViewInit {
 
   constructor(
     protected readonly gameStateService: GameStateService,
+    private readonly router: Router,
     private readonly destroyRef: DestroyRef
   ) {}
 
@@ -100,6 +120,15 @@ export class GameViewComponent implements AfterViewInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => this.startAnimationLoop());
+  }
+
+  protected closeEscapeMenu(): void {
+    this.escapeMenuOpened.set(false);
+  }
+
+  protected quitGame(): void {
+    this.gameStateService.reset();
+    void this.router.navigateByUrl(ROUTE_URLS.home());
   }
 
   private getCurrentWindowSize(): Size {
